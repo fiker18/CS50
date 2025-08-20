@@ -1,59 +1,60 @@
 #include <cs50.h>
 #include <stdio.h>
 
-
 int main(void)
 {
-    long n;
+    long card;
     do
     {
-        n = get_long("Enter your credit card number: ");
+        card = get_long("Enter your credit card number: ");
     }
-    while (n <= 0);
+    while (card <= 0);
 
-    long a = n;
-    long b = n;
-    long c = n;
-    int fd;
-    int d;
+    // variable a,b,c wil be copy of the card
+    long a = card;
+    long b = card;
+    long c = card;
+
+    int last_digit;
+    int digit;
     int card_length = 0;
 
     while (true)
     {
-        n /= 10;
+        card /= 10;
         card_length++;
-        if (n < 1)
+        if (card < 1)
         {
             break;
         }
     }
-    fd = a % 10;
+    last_digit = a % 10;
     int count = card_length;
     int double_sum = 0;
-    int single_sum = fd;
+    int single_sum = last_digit;
 
     for (int i = 0; i < card_length - 1; i++)
     {
         a = a / 10;
-        d = a % 10;
+        digit = a % 10;
 
         if (card_length % 2 == 0)
         {
             if (count % 2 == 0)
             {
-                if (d>=5)
+                if (digit >= 5)
                 {
-                    d = 2 * d - 9;
+                    digit = 2 * digit - 9;
                 }
                 else
                 {
-                    d = 2 * d;
+                    digit *= 2;
                 }
-                double_sum += d;
+                double_sum += digit;
             }
             else
             {
-                single_sum += d;
+                single_sum += digit;
             }
             count--;
         }
@@ -61,45 +62,46 @@ int main(void)
         {
             if (count % 2 == 1)
             {
-                if (d>=5)
+                if (digit >= 5)
                 {
-                    d = 2 * d - 9;
+                    digit = 2 * digit - 9;
                 }
                 else
                 {
-                    d = 2 * d;
+                    digit *= 2;
                 }
-                double_sum += d;
+                double_sum += digit;
             }
             else
             {
-                single_sum += d;
+                single_sum += digit;
             }
             count--;
         }
     }
     int total_sum = single_sum + double_sum;
-    int sd;
 
     if (total_sum % 10 == 0)
     {
+        int second_digit;
         for (int i = 0; i < card_length - 2; i++)
         {
-        b = b / 10;
-        sd = b % 10;
+            b = b / 10;
+            second_digit = b % 10;
         }
 
+        int first_digit;
         for (int i = 0; i < card_length - 1; i++)
         {
-        c = c / 10;
-        d = c % 10;
+            c = c / 10;
+            first_digit = c % 10;
         }
 
         if (card_length == 15)
         {
-            if (d == 3)
+            if (first_digit == 3)
             {
-                if ( sd == 4 || sd == 7)
+                if (second_digit == 4 || second_digit == 7)
                 {
                     printf("AMEX\n");
                 }
@@ -115,9 +117,10 @@ int main(void)
         }
         else if (card_length == 16)
         {
-            if (d == 5)
+            if (first_digit == 5)
             {
-                if ( sd == 1 || sd == 2 || sd == 3 || sd == 4 || sd == 5)
+                if (second_digit == 1 || second_digit == 2 || second_digit == 3 ||
+                    second_digit == 4 || second_digit == 5)
                 {
                     printf("MASTERCARD\n");
                 }
@@ -126,7 +129,7 @@ int main(void)
                     printf("INVALID\n");
                 }
             }
-            else if (d == 4)
+            else if (first_digit == 4)
             {
                 printf("VISA\n");
             }
@@ -137,7 +140,7 @@ int main(void)
         }
         else if (card_length == 13)
         {
-            if (d == 4)
+            if (first_digit == 4)
             {
                 printf("VISA\n");
             }
