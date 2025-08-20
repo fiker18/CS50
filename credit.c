@@ -10,7 +10,7 @@ int main(void)
     }
     while (card <= 0);
 
-    // variable a,b,c are be copy of the card
+    // variable a,b,c are copy of the card
     long a = card;
     long b = card;
     long c = card;
