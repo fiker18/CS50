@@ -11,20 +11,18 @@ int main(void)
     }
     while (n < 1 || n > 8);
 
-    int b = 1;
     for (int row = 0; row < n; row++)
     {
         for (int j = 0; j < n - 1 - j; j++)
         {
             printf(" ");
         }
-        print_hash(b);
+        print_hash(row+1);
         for (int l = 0; l < 2; l++)
         {
             printf(" ");
         }
-        print_hash(b);
-        b++;
+        print_hash(row+1);
         printf("\n");
     }
 }
