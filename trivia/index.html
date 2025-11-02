@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function(){
+
+                document.querySelector(".correct").addEventListener('click', function(){
+                    document.querySelector(".correct").style.backgroundColor = 'green';
+                    document.querySelector(".result").innerHTML = 'Correct!';
+                })
+
+                let incorrect = document.querySelectorAll(".incorrect");
+                for(let i = 0; i < incorrect.length; i++){
+                    incorrect[i].addEventListener('click', function(){
+                        incorrect[i].style.backgroundColor = 'Red';
+                        incorrect[i].parentElement.querySelector('.result').innerHTML = 'Incorrect!';
+                    })
+                }
+                let input = document.querySelector(".input");
+                let response = document.querySelector(".response")
+                document.querySelector("#submit").addEventListener('click', function(){
+                    if (input.value === "RAM"){
+                        input.style.backgroundColor = 'Green';
+                        response.innerHTML = "Correct!";
+                    }
+                    else{
+                        input.style.backgroundColor = 'Red';
+                        response.innerHTML = "Incorrect!";
+                    }
+                })
+            })
+
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>Which of the following is an example of computer hardware?</h3>
+                <button class="incorrect">Microsoft Word</button>
+                <button class="incorrect">Google Chrome</button>
+                <button class="correct">The CPU</button>
+                <button class="incorrect">Linux</button>
+                <p class="result"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>What type of memory is volatile?</h3>
+                <input autocomplete="off" class="input" type="text">
+                <button id="submit">Check Answer</button>
+                <p class="response"></p>
+            </div>
+        </div>
+    </body>
+</html>
