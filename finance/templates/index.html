@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+
+{% block main %}
+
+<h2>Fund your Account</h2>
+    <form action="/" method="POST">
+        <input autocomplete="off" name="fund" placeholder="$ Amount" type="text">
+        <button class="btn btn-primary" type="submit">Fund</button>
+    </form>
+
+
+
+
+<div class="d-flex align-items-start gap-3 me-3">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in stock %}
+                <tr>
+                    <td>{{ row.stock_symbol }}</td>
+                    <td>{{ row.total_shares }}</td>
+                    <td>{{ row.price| usd }}</td>
+                    <td>{{ row.stock_value | usd }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="text-end me-3">
+    <table class="table mb-0 d-inline-table table-sm" style="border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Cash</th>
+                <th>{{ cash | usd}}</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="text-end me-3">
+     <table class="table mb-0 d-inline-table table-sm" style="border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>TOTAL</th>
+                <th>{{ total_value | usd }}</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+{% endblock %}
+

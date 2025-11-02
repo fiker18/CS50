@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    History
+{% endblock %}
+
+
+{% block main %}
+
+    <h2>History</h2>
+        <div class="d-flex align-items-start gap-3 me-3">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>stock_symbol</th>
+                        <th>shares</th>
+                        <th>price</th>
+                        <th>time</th>
+                        <th>transaction_type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table %}
+                        <tr>
+                            <td>{{ row.stock_symbol }}</td>
+                            <td>{{ row.shares }}</td>
+                            <td>{{ row.price | usd }}</td>
+                            <td>{{ row.time }}</td>
+                            <td>{{ row.transaction_type }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+{% endblock %}
+
