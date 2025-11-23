@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="food-container">
+        <div class="food-image">Picture</div>
+
+        <div class="food-details">
+            <h1 id="title"></h1>
+
+            <h3>Description</h3>
+            <p id="description"></p>
+
+            <h3>Ingredients</h3>
+            <ul>
+                <li id="recipe"></li>
+            </ul>
+
+            <h3>Procedure</h3>
+            <ol>
+                <li id="procedure"></li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const foodData = JSON.parse(localStorage.getItem("selectedFood"));
+        console.log("Loaded food:", foodData);
+
+        if (foodData) {
+            document.getElementById("title").innerText = foodData.TITLE;
+            document.getElementById("description").innerText = foodData.DESCRIPTION;
+            document.getElementById("recipe").innerText = foodData.RECIPE;
+            document.getElementById("procedure").innerText = foodData.PROCEDURE;
+        }
+    });
+</script>
+
