@@ -67,12 +67,12 @@ def index():
         list_of_foods = db.execute("SELECT * FROM ownFood WHERE foodid IN (SELECT food_id FROM library WHERE user_id = (?) AND library = (?)) ORDER BY TITLE", session["user_id"], selected_library)
 
         if not list_of_foods or selected_library == "ALL":
-            list_of_foods = db.execute("SELECT * FROM ownFood ORDER BY TITLE")
+            list_of_foods = db.execute("SELECT * FROM ownFood WHERE user_id IS NULL ORDER BY TITLE")
     elif search:
-        list_of_foods = db.execute("SELECT * FROM ownFood WHERE TITLE LIKE (?) ORDER BY TITLE", search)
+        list_of_foods = db.execute("SELECT * FROM ownFood WHERE TITLE LIKE (?) AND user_id IS NULL ORDER BY TITLE", search)
         selected_library = "ALL"
     else:
-        list_of_foods = db.execute("SELECT * FROM ownFood ORDER BY TITLE")
+        list_of_foods = db.execute("SELECT * FROM ownFood WHERE user_id IS NULL ORDER BY TITLE")
         selected_library = "ALL"
 
     return render_template("homepage.html", list_of_foods=list_of_foods, libraries=libraries, selected_library=selected_library)
