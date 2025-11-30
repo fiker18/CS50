@@ -2,19 +2,31 @@
 
 {% block main %}
 
+    <div class="create-btn {% if library == selected_library %} active-lib {% endif %}"
+         onclick="window.location.href='/?library=ALL'">
+          ALL
+    </div>
     {% for library in libraries %}
-        <div class="create-btn">
-            {{ library }}
-        </div>
-    {% endfor %}
+    <div class="create-btn {% if library == selected_library %} active-lib {% endif %}"
+         onclick="window.location.href='/?library={{ library }}'">
+
+        {{ library }}
+
+    </div>
+{% endfor %}
 
     <div class="food-grid">
         {% for food in list_of_foods %}
-                <div class="food-card"
-                    onclick='openFood({{ food | tojson }})'>
-                    <div class="thumbnail"></div>
+                <div class="food-card" onclick="window.location.href='/food?food_id={{ food.foodid }}'">
+                    <div class="thumbnail">
+                        {% if food.IMAGE %}
+                            <img src="{{ url_for('static', filename='uploads/' + food.IMAGE) }}" alt="{{ food.TITLE }}">
+                        {% else %}
+                        {% endif %}
+                    </div>
                     <div class="food-info">
                         <h3>{{ food.TITLE }}</h3>
+                        <p>{{ food.DURATIONS }} min</p>
                     </div>
                 </div>
         {% endfor %}
@@ -22,11 +34,3 @@
 
 {% endblock %}
 
-
-<script>
-function openFood(food) {
-    console.log("Saving food:", food);
-    localStorage.setItem("selectedFood", JSON.stringify(food));
-    window.location.href = "/food";
-}
-</script>

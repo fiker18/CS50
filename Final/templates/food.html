@@ -3,39 +3,46 @@
 {% block main %}
 
     <div class="food-container">
-        <div class="food-image">Picture</div>
+        <div class="food-image">
+            {% if food.IMAGE %}
+                <img src="{{ url_for('static', filename='uploads/' + food.IMAGE) }}" alt="{{ food.TITLE }}">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+        </div>
 
         <div class="food-details">
-            <h1 id="title"></h1>
+            <div class="title">
+                <h1 id="title">{{ food.TITLE }}</h1>
+                <form id="libraryForm" action="/set_library" method="POST">
+                    <select id="browsers" name="library">
+                        <option disabled selected>Choose Library</option>
+                        {% for library in libraries %}
+                            <option value="{{ library }}">{{ library }}</option>
+                        {% endfor %}
+                        <option value="New_Library">Create Library</option>
+                    </select>
 
+                    <input type="hidden" id="newLibraryName" name="new_library">
+                    <input type="hidden" id="food_id" name="food_id" value="{{food.foodid}}">
+                </form>
+            </div>
             <h3>Description</h3>
-            <p id="description"></p>
+            <p id="description">{{ food.DESCRIPTION }}</p>
 
-            <h3>Ingredients</h3>
-            <ul>
-                <li id="recipe"></li>
-            </ul>
+           <h3>Ingredients</h3>
+            <p>{{ food.RECIPE }}</p>
 
             <h3>Procedure</h3>
-            <ol>
-                <li id="procedure"></li>
-            </ol>
+            <p>{{ food.PROCEDURE }}</p>
+
+            <h3>Duration</h3>
+            <p>{{ food.DURATIONS }} minutes</p>
+
+
         </div>
     </div>
 {% endblock %}
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const foodData = JSON.parse(localStorage.getItem("selectedFood"));
-        console.log("Loaded food:", foodData);
-
-        if (foodData) {
-            document.getElementById("title").innerText = foodData.TITLE;
-            document.getElementById("description").innerText = foodData.DESCRIPTION;
-            document.getElementById("recipe").innerText = foodData.RECIPE;
-            document.getElementById("procedure").innerText = foodData.PROCEDURE;
-        }
-    });
-</script>
 

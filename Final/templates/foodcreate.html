@@ -8,7 +8,9 @@
         <meta name="viewport" content="initial-scale=1, width=device-width">
 
         <title>Foody</title>
-        <link rel="stylesheet" href="/static/styles.css">
+
+        <link rel="stylesheet" href="/static/stylescreate.css">
+
         <link rel="icon" type="image/png" href="/static/favicon.png">
 
 
@@ -40,10 +42,6 @@
                         </div>
 
                         <ul class="navbar-nav ms-auto mt-2">
-                            <div class="create-btn">
-                                <a href="/foodcreate"><span class="plus">+</span><span>Create</span></a>
-                            </div>
-
                             <li class="nav-item"><a class="nav-link" href="/login">Log Out</a></li>
                          </ul>
                     </div>
@@ -53,40 +51,35 @@
         </header>
 
         <main>
-            {% block main %}{% endblock %}
+            <form class="form"action="/foodcreate" method="post" enctype="multipart/form-data">
+                <div class="food-container">
+
+                    <div class="food-image">
+                        <h3>Upload Picture</h3>
+                        <input type="file" name="image" accept="image/*">
+                    </div>
+
+                    <div class="food-details">
+                        <h3>Title</h3>
+                        <input type="text" name="title" required>
+
+                        <h3>Description</h3>
+                        <textarea name="description" rows="3" required></textarea>
+
+                        <h3>Ingredients</h3>
+                        <textarea name="ingredients" rows="4" required></textarea>
+
+                        <h3>Procedure</h3>
+                        <textarea name="procedure" rows="6" required></textarea>
+
+                        <h3>Duration</h3>
+                        <input type="number" name="duration" required></textarea>
+
+                        <button type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
         </main>
-
-
-    <script>
-
-    document.getElementById("browsers").addEventListener("change", function () {
-
-    let selectedValue = this.value;
-
-    // If user chose "New Library"
-    if (selectedValue === "New_Library") {
-
-        let userInput = prompt("Enter a name for the new library:");
-
-     
-        if (!userInput || userInput.trim() === "") {
-            this.value = "Choose Library"; // resets dropdown
-            return;
-        }
-
-
-        this.options[this.selectedIndex].text = userInput;
-        this.options[this.selectedIndex].value = userInput;
-
-        selectedValue = userInput;
-    }
-
-
-    document.getElementById("libraryForm").submit();
-});
-    </script>
-
-
     </body>
 </html>
 
